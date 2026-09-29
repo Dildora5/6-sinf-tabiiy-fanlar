@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ratsional ovqatlanish — 6-sinf Tabiiy fanlar</title>
+<style>
+:root{
+  --bg:#f4f8fc;--card:#fff;--text:#17324d;--muted:#60758a;
+  --primary:#1976d2;--primary2:#42a5f5;--green:#2e9d61;--orange:#f59e0b;
+  --red:#e05252;--line:#dce7f0;--shadow:0 10px 30px rgba(31,70,100,.10);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#eef7ff,#f8fbf5);color:var(--text)}
+button{font:inherit;cursor:pointer}
+.app{max-width:1180px;margin:auto;padding:18px}
+header{background:linear-gradient(135deg,#1264b5,#27a66b);color:white;border-radius:24px;padding:28px 30px;box-shadow:var(--shadow)}
+header h1{margin:0 0 8px;font-size:32px} header p{margin:0;opacity:.92}
+.progress{margin-top:20px;height:9px;background:#dfeaf2;border-radius:99px;overflow:hidden}
+.progress span{display:block;height:100%;background:linear-gradient(90deg,#1976d2,#31b76a);width:33.33%;transition:.4s}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+.navbtn{border:1px solid var(--line);background:white;padding:11px 15px;border-radius:14px;color:var(--text);font-weight:700}
+.navbtn.active{background:#e8f3ff;color:#1264b5;border-color:#9bc9ef}
+.section{display:none}.section.active{display:block;animation:fade .35s}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow);margin-bottom:18px}
+h2{margin-top:0;font-size:25px}.lead{color:var(--muted);line-height:1.6}
+.definition{border-left:5px solid var(--primary);background:#edf6ff;padding:17px 19px;border-radius:12px;line-height:1.6}
+.food-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.food{border:2px solid var(--line);background:#fff;border-radius:17px;padding:16px;text-align:center;transition:.2s;user-select:none}
+.food:hover{transform:translateY(-3px);border-color:#8fc3ec}.food .emoji{font-size:38px}.food strong{display:block;margin-top:7px}
+.info{margin-top:14px;padding:14px;border-radius:14px;background:#f5f9fc;min-height:58px;color:#36536a}
+.plate-area{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.ingredients{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.dragitem{background:#f8fbff;border:2px dashed #a9c9df;border-radius:14px;padding:12px;text-align:center;cursor:grab}
+.plate{min-height:330px;border-radius:50%;border:8px solid #e7edf3;background:radial-gradient(circle,#fff 0 56%,#f4f7fa 57%);display:flex;align-content:center;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px;padding:50px;box-shadow:inset 0 0 0 2px #d8e2ea}
+.plate .placed{background:#e8f7ef;border-radius:12px;padding:8px 10px;font-size:28px}
+.feedback{margin-top:14px;padding:13px;border-radius:12px;display:none}.good{background:#e8f7ef;color:#1e7a4a}.warn{background:#fff4df;color:#8a5a00}.bad{background:#ffeded;color:#a83232}
+.choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.choice{border:2px solid var(--line);background:white;border-radius:16px;padding:18px;text-align:left}.choice:hover{border-color:#80b9e5}
+.choice .big{font-size:38px}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.person{border-radius:18px;padding:20px}.balanced{background:#ebf8f0;border:2px solid #a8dfbd}.unbalanced{background:#fff4e5;border:2px solid #f2d19b}
+.person h3{margin-top:0}.meter{height:12px;background:#dfe7ed;border-radius:99px;overflow:hidden;margin:8px 0 15px}.meter span{display:block;height:100%;border-radius:99px}.green{background:#2e9d61}.yellow{background:#f59e0b}
+.digest-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:20px}
+.body-diagram{background:linear-gradient(#fff,#f4f9fc);border:1px solid var(--line);border-radius:20px;padding:18px;min-height:550px;position:relative;overflow:hidden}
+.body-outline{position:relative;width:300px;height:500px;margin:auto}
+.head{position:absolute;left:105px;top:8px;width:90px;height:90px;border-radius:50%;background:#ffd9c4;border:2px solid #e4ae95}
+.neck{position:absolute;left:130px;top:90px;width:40px;height:38px;background:#ffd9c4}
+.torso{position:absolute;left:70px;top:115px;width:160px;height:300px;border-radius:75px 75px 55px 55px;background:#f8d6c3;border:2px solid #e4ae95}
+.organ{position:absolute;left:50%;transform:translateX(-50%);border:2px solid #fff;box-shadow:0 2px 5px #7892a0;cursor:pointer;transition:.2s}
+.organ:hover{transform:translateX(-50%) scale(1.05)}
+.mouth{top:112px;width:54px;height:20px;background:#e66b78;border-radius:50%}
+.esophagus{top:132px;width:13px;height:75px;background:#e2a16e;border-radius:8px}
+.stomach{top:205px;width:75px;height:55px;background:#e9908d;border-radius:45% 45% 50% 50%}
+.small{top:265px;width:105px;height:105px;background:#f3c56b;border-radius:45%;border:7px solid #d99e4b}
+.large{top:255px;width:135px;height:135px;border:15px solid #83bd77;border-radius:42%;background:transparent;z-index:0}
+.rectum{top:380px;width:22px;height:45px;background:#83bd77;border-radius:12px}
+.organs-label{position:absolute;right:12px;top:12px;font-size:12px;color:#6d8191}
+.organ-card h3{margin-top:0}.organ-card .hint{color:var(--muted)}
+.journey{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-top:15px}.step{background:#eef6ff;border:2px solid #b8d8f2;padding:10px 13px;border-radius:12px;font-weight:700}.arrow{font-size:22px;color:#7c91a1}
+.quiz-q{font-size:20px;font-weight:700;margin-bottom:14px}.quiz-option{width:100%;text-align:left;border:2px solid var(--line);background:#fff;padding:13px;border-radius:12px;margin:7px 0}.quiz-option.correct{border-color:#46a972;background:#eaf8f0}.quiz-option.wrong{border-color:#df6a6a;background:#ffeded}.quiz-explain{padding:12px;background:#f4f8fb;border-radius:10px;margin-top:10px}
+.nav-actions{display:flex;justify-content:space-between;margin:20px 0}.action{border:0;border-radius:14px;padding:13px 20px;background:#1264b5;color:white;font-weight:700}.action.secondary{background:#e8eef3;color:#29475d}
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.summary div{background:#f5f9fc;border:1px solid var(--line);padding:15px;border-radius:14px}
+@media(max-width:800px){.food-grid{grid-template-columns:repeat(2,1fr)}.plate-area,.compare,.digest-wrap{grid-template-columns:1fr}.choice-grid,.summary{grid-template-columns:1fr}.body-outline{transform:scale(.9);transform-origin:top center}.ingredients{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <h1>🥗 Ratsional ovqatlanish</h1>
+  <p>6-sinf “Tabiiy fanlar” — interaktiv ta’limiy simulyatsiya</p>
+  <div class="progress"><span id="progress"></span></div>
+</header>
+
+<nav>
+  <button class="navbtn active" data-go="0">1. Ratsional ovqatlanish</button>
+  <button class="navbtn" data-go="1">2. Hayotdagi o‘rni</button>
+  <button class="navbtn" data-go="2">3. Ovqat hazm qilish</button>
+  <button class="navbtn" data-go="3">📝 Mini-quiz</button>
+</nav>
+
+<section class="section active" id="s0">
+<div class="card">
+<h2>1. Ratsional ovqatlanish haqida tushuncha</h2>
+<div class="definition"><b>Ratsional ovqatlanish</b> — inson organizmining energiya va oziq moddalarga bo‘lgan ehtiyojini hisobga olgan holda, xilma-xil, muvozanatli va me’yorida ovqatlanish.</div>
+<p class="lead">Quyidagi mahsulotlardan birini bosing. Uning tarkibidagi asosiy oziq moddalar bilan tanishing.</p>
+<div class="food-grid" id="foods"></div>
+<div class="info" id="foodInfo">Mahsulotni tanlang — ma’lumot shu yerda chiqadi.</div>
+</div>
+
+<div class="card">
+<h2>🍽️ Interaktiv “Sog‘lom tarelka”</h2>
+<p class="lead">Mahsulotlarni sichqoncha bilan tarelkaga sudrang. Maqsad — turli guruhlardan mahsulotlarni tanlab, muvozanatli ovqat tuzish.</p>
+<div class="plate-area">
+<div class="ingredients" id="ingredients"></div>
+<div>
+<div class="plate" id="plate" ondragover="event.preventDefault()" ondrop="dropFood(event)"><span id="plateHint">Mahsulotlarni shu yerga sudrang</span></div>
+<div class="feedback" id="plateFeedback"></div>
+<button class="action" style="margin-top:10px" onclick="checkPlate()">Tarelkani tekshirish</button>
+<button class="action secondary" style="margin-top:10px" onclick="clearPlate()">Tozalash</button>
+</div>
+</div>
+</div>
+<div class="nav-actions"><span></span><button class="action" onclick="go(1)">Keyingi →</button></div>
+</section>
+
+<section class="section" id="s1">
+<div class="card">
+<h2>2. Ratsional ovqatlanishning inson hayotidagi o‘rni</h2>
+<p class="lead">Ovqatlanish tartibi organizmga energiya va zarur oziq moddalarni olishda muhim. Muvozanatli ratsion o‘sish, rivojlanish, o‘qish va jismoniy faoliyat uchun zarur moddalarni yetkazishga yordam beradi.</p>
+<div class="compare">
+<div class="person balanced"><h3>🧒 A) Muvozanatli ovqatlanadigan bola</h3>
+<p>⚡ Energiya olishga yordam beradi</p><div class="meter"><span class="green" style="width:88%"></span></div>
+<p>📚 O‘qishga diqqatni jamlash uchun zarur oziq moddalarni oladi</p><div class="meter"><span class="green" style="width:84%"></span></div>
+<p>🏃 Jismoniy faollik uchun energiya mavjud</p><div class="meter"><span class="green" style="width:90%"></span></div>
+<p>🌱 O‘sish va rivojlanish uchun turli oziq moddalar olinadi</p>
+</div>
+<div class="person unbalanced"><h3>🍟 B) Bir xil yoki nomutanosib ovqatlanish</h3>
+<p>⚠️ Energiya yetishmasligi yoki ortiqcha energiya bo‘lishi mumkin</p><div class="meter"><span class="yellow" style="width:58%"></span></div>
+<p>⚠️ Ayrim oziq moddalar yetishmasligi mumkin</p><div class="meter"><span class="yellow" style="width:52%"></span></div>
+<p>😴 Holsizlik yoki diqqat pasayishi kuzatilishi mumkin</p><div class="meter"><span class="yellow" style="width:48%"></span></div>
+<p><b>Eslatma:</b> bular ta’limiy misollar; har bir insonning ehtiyoji turlicha.</p>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h2>🤔 Qaysi nonushta sog‘lomroq?</h2>
+<div class="choice-grid">
+<button class="choice" onclick="breakfast(1)"><div class="big">🥤🍟</div><b>1. Faqat gazli ichimlik va chips</b></button>
+<button class="choice" onclick="breakfast(2)"><div class="big">🥚🍞🥒💧</div><b>2. Tuxum, non, sabzavot va suv</b></button>
+<button class="choice" onclick="breakfast(3)"><div class="big">🍬🍫🍭</div><b>3. Faqat shirinlik</b></button>
+</div>
+<div class="feedback" id="breakfastFeedback"></div>
+</div>
+<div class="nav-actions"><button class="action secondary" onclick="go(0)">← Orqaga</button><button class="action" onclick="go(2)">Keyingi →</button></div>
+</section>
+
+<section class="section" id="s2">
+<div class="card">
+<h2>3. Ovqat hazm qilish sistemasi</h2>
+<p class="lead">Ovqat hazm qilish sistemasida ovqat maydalanadi, parchalanadi va undan organizm foydalanishi mumkin bo‘lgan oziq moddalar o‘zlashtiriladi. Diagrammadagi a’zolarni bosing.</p>
+<div class="digest-wrap">
+<div class="body-diagram">
+<div class="organs-label">A’zoni bosing →</div>
+<div class="body-outline">
+<div class="head"></div><div class="neck"></div><div class="torso"></div>
+<div class="organ mouth" title="Og‘iz bo‘shlig‘i" onclick="organInfo('mouth')"></div>
+<div class="organ esophagus" title="Qizilo‘ngach" onclick="organInfo('esophagus')"></div>
+<div class="organ large" title="Yo‘g‘on ichak" onclick="organInfo('large')"></div>
+<div class="organ stomach" title="Oshqozon" onclick="organInfo('stomach')"></div>
+<div class="organ small" title="Ingichka ichak" onclick="organInfo('small')"></div>
+<div class="organ rectum" title="To‘g‘ri ichak" onclick="organInfo('rectum')"></div>
+</div>
+</div>
+<div class="card organ-card" style="margin:0">
+<h3 id="organTitle">A’zoni tanlang</h3>
+<p id="organText" class="hint">Organ ustiga bosing. Uning nomi va vazifasi shu yerda chiqadi.</p>
+<div class="journey">
+<div class="step">Og‘iz</div><span class="arrow">→</span><div class="step">Qizilo‘ngach</div><span class="arrow">→</span><div class="step">Oshqozon</div><span class="arrow">→</span><div class="step">Ingichka ichak</div><span class="arrow">→</span><div class="step">Yo‘g‘on ichak</div><span class="arrow">→</span><div class="step">Tashqariga</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h2>🍎 “Ovqat organizmda qanday sayohat qiladi?”</h2>
+<p class="lead">Quyidagi ketma-ketlikni kuzating. Har bosqichda ovqat bilan nima sodir bo‘lishini bilib oling.</p>
+<div class="journey" id="journey"></div>
+<button class="action" onclick="startJourney()">▶ Animatsiyani boshlash</button>
+<div class="info" id="journeyInfo">Boshlash tugmasini bosing.</div>
+</div>
+
+<div class="card">
+<h2>🧪 Oziq moddasini top</h2>
+<div class="choice-grid">
+<button class="choice" onclick="matchNutrient('protein')"><div class="big">🥚</div><b>Oqsil</b></button>
+<button class="choice" onclick="matchNutrient('carb')"><div class="big">🍞</div><b>Uglevod</b></button>
+<button class="choice" onclick="matchNutrient('fat')"><div class="big">🥜</div><b>Yog‘</b></button>
+<button class="choice" onclick="matchNutrient('vit')"><div class="big">🥕</div><b>Vitaminlar</b></button>
+<button class="choice" onclick="matchNutrient('water')"><div class="big">💧</div><b>Suv</b></button>
+</div>
+<div class="feedback" id="nutrientFeedback"></div>
+</div>
+<div class="nav-actions"><button class="action secondary" onclick="go(1)">← Orqaga</button><button class="action" onclick="go(3)">Mini-quiz →</button></div>
+</section>
+
+<section class="section" id="s3">
+<div class="card">
+<h2>📝 5 savolli mini-quiz</h2>
+<p class="lead">Har bir savolga javob bering. Natijangiz oxirida ko‘rsatiladi.</p>
+<div id="quiz"></div>
+<div class="feedback" id="quizResult"></div>
+</div>
+<div class="card" id="summary" style="display:none">
+<h2>🎉 Bugun nimalarni o‘rgandik?</h2>
+<div class="summary">
+<div>🥗 <b>1.</b> Ratsional ovqatlanish — muvozanatli va me’yoridagi ovqatlanish.</div>
+<div>🍎 <b>2.</b> Turli xil oziq-ovqatlar organizmga turli xil oziq moddalarni beradi.</div>
+<div>🫀 <b>3.</b> Ovqat hazm qilish sistemasida oziq moddalar parchalanadi va organizm tomonidan o‘zlashtiriladi.</div>
+</div>
+</div>
+<div class="nav-actions"><button class="action secondary" onclick="go(2)">← Orqaga</button><button class="action" onclick="restart()">🔄 Qayta boshlash</button></div>
+</section>
+</div>
+
+<script>
+const foods=[
+{name:"Non va don",emoji:"🍞",group:"don",nutrients:"uglevodlar, oqsillar, vitamin va mineral moddalar"},
+{name:"Go‘sht",emoji:"🥩",group:"protein",nutrients:"oqsillar, yog‘lar, temir kabi mineral moddalar"},
+{name:"Tuxum",emoji:"🥚",group:"protein",nutrients:"oqsillar, yog‘lar, vitamin va mineral moddalar"},
+{name:"Sut mahsulotlari",emoji:"🥛",group:"protein",nutrients:"oqsillar, yog‘lar, kalsiy va boshqa mineral moddalar"},
+{name:"Sabzavotlar",emoji:"🥕",group:"fruitveg",nutrients:"vitaminlar, mineral moddalar, suv va kletchatka"},
+{name:"Mevalar",emoji:"🍎",group:"fruitveg",nutrients:"vitaminlar, mineral moddalar, suv va uglevodlar"},
+{name:"Yong‘oqlar",emoji:"🥜",group:"protein",nutrients:"yog‘lar, oqsillar, mineral moddalar"},
+{name:"Suv",emoji:"💧",group:"water",nutrients:"suv"}
+];
+const foodsEl=document.getElementById("foods"), ing=document.getElementById("ingredients");
+foods.forEach((f,i)=>{
+ let b=document.createElement("button");b.className="food";b.innerHTML=`<div class="emoji">${f.emoji}</div><strong>${f.name}</strong>`;b.onclick=()=>showFood(i);foodsEl.appendChild(b);
+ let d=document.createElement("div");d.className="dragitem";d.draggable=true;d.dataset.i=i;d.innerHTML=`${f.emoji} ${f.name}`;d.ondragstart=e=>e.dataTransfer.setData("text/plain",i);ing.appendChild(d);
+});
+function showFood(i){const f=foods[i];document.getElementById("foodInfo").innerHTML=`<b>${f.name}</b> tarkibida asosan: <b>${f.nutrients}</b>. Har bir mahsulot turli oziq moddalarni turlicha miqdorda beradi.`}
+let plateItems=[];
+function dropFood(e){e.preventDefault();let i=+e.dataTransfer.getData("text/plain");if(!plateItems.includes(i)){plateItems.push(i);renderPlate()}}
+function renderPlate(){let p=document.getElementById("plate");p.innerHTML="";plateItems.forEach(i=>{let s=document.createElement("span");s.className="placed";s.textContent=foods[i].emoji;s.title=foods[i].name;p.appendChild(s)});if(!plateItems.length)p.innerHTML='<span id="plateHint">Mahsulotlarni shu yerga sudrang</span>'}
+function checkPlate(){
+ let groups=new Set(plateItems.map(i=>foods[i].group)), f=document.getElementById("plateFeedback");
+ f.style.display="block";
+ if(groups.has("don")&&groups.has("fruitveg")&&groups.has("protein")&&groups.has("water")){f.className="feedback good";f.innerHTML="✅ <b>Muvozanatli ovqatlanish!</b> Tarelka turli oziq-ovqat guruhlarini o‘z ichiga oldi."}
+ else if(plateItems.length<=2){f.className="feedback warn";f.innerHTML="⚠️ Ratsion juda bir xil. Turli oziq-ovqatlardan tanlang: sabzavot/meva, don, oqsilga boy mahsulot va suv."}
+ else{f.className="feedback warn";f.innerHTML="💡 Yaxshi boshladingiz. Tarelka yanada muvozanatli bo‘lishi uchun yetishmayotgan guruhlarni qo‘shing."}
+}
+function clearPlate(){plateItems=[];renderPlate();document.getElementById("plateFeedback").style.display="none"}
+function breakfast(n){let f=document.getElementById("breakfastFeedback");f.style.display="block";if(n===2){f.className="feedback good";f.innerHTML="✅ <b>2-variant.</b> Tuxum, non, sabzavot va suv turli oziq moddalarni olishga yordam beradi."}else{f.className="feedback warn";f.innerHTML="💡 Bu variantda ratsion xilma-xilligi yetarli emas. Muvozanat uchun turli guruhlardan mahsulotlar tanlash kerak."}}
+const organData={
+mouth:["Og‘iz bo‘shlig‘i","Ovqat shu yerda qabul qilinadi. Tishlar uni mayda bo‘laklarga ajratadi, so‘lak esa ovqatni namlaydi va hazm jarayonining boshlanishiga yordam beradi."],
+esophagus:["Qizilo‘ngach","Ovqatni yutgandan keyin uni oshqozonga olib boradigan naycha. Mushaklarining harakati ovqatni pastga suradi."],
+stomach:["Oshqozon","Ovqat vaqtincha to‘planadigan va hazm jarayoni davom etadigan a’zo. Oshqozon shirasi ovqatni qayta ishlashga yordam beradi."],
+small:["Ingichka ichak","Ovqat hazm bo‘lishining katta qismi shu yerda davom etadi. Oziq moddalarning asosiy qismi qonga so‘riladi."],
+large:["Yo‘g‘on ichak","Hazm bo‘lmagan qoldiqlardan suvning bir qismi so‘riladi va najas shakllanadi."],
+rectum:["To‘g‘ri ichak","Hazm bo‘lmagan qoldiqlar tashqariga chiqarilishidan oldin shu qismda to‘planadi."]
+};
+function organInfo(k){document.getElementById("organTitle").textContent=organData[k][0];document.getElementById("organText").textContent=organData[k][1]}
+const journeyData=[
+["Og‘iz","Tishlar ovqatni mayda bo‘laklarga ajratadi, so‘lak bilan aralashadi."],
+["Qizilo‘ngach","Mushaklar harakati ovqatni oshqozonga suradi."],
+["Oshqozon","Ovqat aralashadi va hazm jarayoni davom etadi."],
+["Ingichka ichak","Oziq moddalarning asosiy qismi qonga so‘riladi."],
+["Yo‘g‘on ichak","Suvning bir qismi so‘riladi; qoldiq shakllanadi."],
+["Tashqariga chiqarish","Hazm bo‘lmagan qoldiqlar organizmdan chiqariladi."]
+];
+const j=document.getElementById("journey");journeyData.forEach((x,i)=>{let s=document.createElement("div");s.className="step";s.id="j"+i;s.textContent=x[0];j.appendChild(s);if(i<journeyData.length-1){let a=document.createElement("span");a.className="arrow";a.textContent="→";j.appendChild(a)}})
+function startJourney(){let i=0,info=document.getElementById("journeyInfo");document.querySelectorAll("#journey .step").forEach(x=>x.style.background="");function next(){if(i>=journeyData.length)return;document.querySelectorAll("#journey .step").forEach(x=>x.style.background="");document.getElementById("j"+i).style.background="#dff3e8";info.innerHTML=`<b>${journeyData[i][0]}:</b> ${journeyData[i][1]}`;i++;setTimeout(next,1300)}next()}
+const nutrientData={protein:"Oqsil — o‘sish va hujayralar uchun muhim qurilish materiali.",carb:"Uglevod — organizm uchun asosiy energiya manbalaridan biri.",fat:"Yog‘ — energiya manbai va ayrim biologik jarayonlarda ishtirok etadi.",vit:"Vitaminlar — organizmdagi ko‘plab jarayonlarning normal kechishiga yordam beradi.",water:"Suv — organizm faoliyati uchun zarur."};
+function matchNutrient(k){let f=document.getElementById("nutrientFeedback");f.style.display="block";f.className="feedback good";f.textContent="✅ "+nutrientData[k]}
+const questions=[
+["Ratsional ovqatlanish nimani anglatadi?",["Faqat shirinlik yeyish","Xilma-xil, muvozanatli va me’yorida ovqatlanish","Faqat go‘sht yeyish"],1],
+["Qaysi mahsulotlar oqsilga boy bo‘lishi mumkin?",["Tuxum va go‘sht","Faqat suv","Faqat mevalar"],0],
+["Oziq moddalarning asosiy qismi qayerda qonga so‘riladi?",["Oshqozonda","Ingichka ichakda","Yo‘g‘on ichakda"],1],
+["Yo‘g‘on ichakda suv bilan nima sodir bo‘ladi?",["Suvning bir qismi so‘riladi","Suv butunlay yo‘qoladi","Suv hosil bo‘ladi"],0],
+["Uglevodlarning asosiy vazifalaridan biri nima?",["Energiya bilan ta’minlash","Faqat suyak qurish","Ovqatni oshqozonda saqlash"],0]
+];
+let quizScore=0,answered=0;
+function renderQuiz(){let q=document.getElementById("quiz");q.innerHTML="";questions.forEach((x,qi)=>{let box=document.createElement("div");box.className="card";box.style.boxShadow="none";box.innerHTML=`<div class="quiz-q">${qi+1}. ${x[0]}</div>`;x[1].forEach((opt,oi)=>{let b=document.createElement("button");b.className="quiz-option";b.textContent=opt;b.onclick=()=>answerQuiz(qi,oi,box);box.appendChild(b)});let ex=document.createElement("div");ex.className="quiz-explain";ex.style.display="none";box.appendChild(ex);q.appendChild(box)})}
+function answerQuiz(qi,oi,box){if(box.dataset.done)return;box.dataset.done="1";answered++;let bs=box.querySelectorAll(".quiz-option");bs[questions[qi][2]].classList.add("correct");let ex=box.querySelector(".quiz-explain");if(oi===questions[qi][2]){quizScore++;ex.textContent="✅ To‘g‘ri javob!";}else{bs[oi].classList.add("wrong");ex.textContent="❌ Noto‘g‘ri. To‘g‘ri javob: "+questions[qi][1][questions[qi][2]]+". "}ex.style.display="block";if(answered===questions.length){let r=document.getElementById("quizResult");r.style.display="block";r.className="feedback good";r.innerHTML=`<b>Natija: ${quizScore}/${questions.length}</b> — ${quizScore>=4?"Mavzuni yaxshi o‘zlashtirdingiz!":"Yaxshi harakat. Mavzuni yana bir marta ko‘rib chiqing."}`;document.getElementById("summary").style.display="block"}}
+function go(n){document.querySelectorAll(".section").forEach((s,i)=>s.classList.toggle("active",i===n));document.querySelectorAll(".navbtn").forEach((b,i)=>b.classList.toggle("active",i===n));document.getElementById("progress").style.width=((n+1)/4*100)+"%";window.scrollTo({top:0,behavior:"smooth"})}
+function restart(){plateItems=[];renderPlate();quizScore=0;answered=0;document.getElementById("quizResult").style.display="none";document.getElementById("summary").style.display="none";renderQuiz();go(0)}
+document.querySelectorAll(".navbtn").forEach(b=>b.onclick=()=>go(+b.dataset.go));
+renderQuiz();
+</script>
+</body>
+</html>
